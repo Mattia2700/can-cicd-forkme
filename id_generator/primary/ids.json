@@ -32,6 +32,9 @@
                 },
                 "STEER_SYSTEM_STATUS": {
                     "id": 1793
+                },
+                "MARKER": {
+                    "id": 1
                 }
             }
         },
@@ -43,6 +46,9 @@
                 },
                 "CAR_STATUS": {
                     "id": 514
+                },
+                "DAS_ERRORS": {
+                    "id": 2
                 },
                 "SPEED": {
                     "id": 546
@@ -125,6 +131,16 @@
                 },
                 "HV_CELL_BALANCING_STATUS": {
                     "id": 583
+                }
+            }
+        },
+        "FIXED_IDS": {
+            "messages": {
+                "INV_L_SET_TORQUE": {
+                    "id": 513
+                },
+                "INV_L_RESPONSE": {
+                    "id": 385
                 }
             }
         }

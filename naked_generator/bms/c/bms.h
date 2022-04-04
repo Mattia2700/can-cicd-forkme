@@ -17,15 +17,6 @@ extern "C" {
 #ifndef __NAKED_SHARED
 #define __NAKED_SHARED
     /*
-    *   STDC Version check
-    *   check if STDC version is greater or equal than the minimum version required
-    */
-    #define NAKED_STDC_MIN_VERSION 201112L
-    #if __STDC_VERSION__ < NAKED_STDC_MIN_VERSION
-        #error "** STDC VERSION NOT SUPPORTED **"
-    #endif
-    
-    /*
     *   Endianness check
     *   static check for supported endianness
     */

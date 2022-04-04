@@ -4,6 +4,15 @@
 
 #include "primary.h"
 
+/*
+*   STDC Version check
+*   check if STDC version is greater or equal than the minimum version required
+*/
+#define NAKED_STDC_MIN_VERSION 201112L
+#if __STDC_VERSION__ < NAKED_STDC_MIN_VERSION
+	#error "** STDC VERSION NOT SUPPORTED **"
+#endif
+
 /* primary_STEER_VERSION */
 size_t serialize_primary_STEER_VERSION(uint8_t* buffer, uint8_t component_version, uint8_t cancicd_version) {
     primary_STEER_VERSION primary_steer_version = { component_version, cancicd_version };
@@ -123,6 +132,18 @@ size_t deserialize_primary_CAR_STATUS(uint8_t* buffer, primary_CAR_STATUS* prima
 	// assert(buf_len >= sizeof(primary_CAR_STATUS));
 	memcpy(primary_car_status, buffer, sizeof(primary_CAR_STATUS));
     return sizeof(primary_CAR_STATUS);
+}
+/* primary_DAS_ERRORS */
+size_t serialize_primary_DAS_ERRORS(uint8_t* buffer, primary_Das_Errors das_error) {
+    primary_DAS_ERRORS primary_das_errors = { {das_error[0]} };
+	// assert(buf_len >= sizeof(primary_DAS_ERRORS));
+	memcpy(buffer, &primary_das_errors, sizeof(primary_DAS_ERRORS));
+    return sizeof(primary_DAS_ERRORS);
+} 
+size_t deserialize_primary_DAS_ERRORS(uint8_t* buffer, primary_DAS_ERRORS* primary_das_errors) {
+	// assert(buf_len >= sizeof(primary_DAS_ERRORS));
+	memcpy(primary_das_errors, buffer, sizeof(primary_DAS_ERRORS));
+    return sizeof(primary_DAS_ERRORS);
 }
 /* primary_SPEED */
 size_t serialize_primary_SPEED(uint8_t* buffer, uint16_t encoder_r, uint16_t encoder_l, uint16_t inverter_r, uint16_t inverter_l) {
@@ -351,4 +372,28 @@ size_t deserialize_primary_HV_CELL_BALANCING_STATUS(uint8_t* buffer, primary_HV_
 	// assert(buf_len >= sizeof(primary_HV_CELL_BALANCING_STATUS));
 	memcpy(primary_hv_cell_balancing_status, buffer, sizeof(primary_HV_CELL_BALANCING_STATUS));
     return sizeof(primary_HV_CELL_BALANCING_STATUS);
+}
+/* primary_INV_L_SET_TORQUE */
+size_t serialize_primary_INV_L_SET_TORQUE(uint8_t* buffer, uint8_t regid, uint8_t lsb, uint8_t msb) {
+    primary_INV_L_SET_TORQUE primary_inv_l_set_torque = { regid, lsb, msb };
+	// assert(buf_len >= sizeof(primary_INV_L_SET_TORQUE));
+	memcpy(buffer, &primary_inv_l_set_torque, sizeof(primary_INV_L_SET_TORQUE));
+    return sizeof(primary_INV_L_SET_TORQUE);
+} 
+size_t deserialize_primary_INV_L_SET_TORQUE(uint8_t* buffer, primary_INV_L_SET_TORQUE* primary_inv_l_set_torque) {
+	// assert(buf_len >= sizeof(primary_INV_L_SET_TORQUE));
+	memcpy(primary_inv_l_set_torque, buffer, sizeof(primary_INV_L_SET_TORQUE));
+    return sizeof(primary_INV_L_SET_TORQUE);
+}
+/* primary_INV_L_RESPONSE */
+size_t serialize_primary_INV_L_RESPONSE(uint8_t* buffer, uint8_t reg_id, primary_Reg_Val reg_val) {
+    primary_INV_L_RESPONSE primary_inv_l_response = { reg_id, {reg_val[0], reg_val[1], reg_val[2], reg_val[3]} };
+	// assert(buf_len >= sizeof(primary_INV_L_RESPONSE));
+	memcpy(buffer, &primary_inv_l_response, sizeof(primary_INV_L_RESPONSE));
+    return sizeof(primary_INV_L_RESPONSE);
+} 
+size_t deserialize_primary_INV_L_RESPONSE(uint8_t* buffer, primary_INV_L_RESPONSE* primary_inv_l_response) {
+	// assert(buf_len >= sizeof(primary_INV_L_RESPONSE));
+	memcpy(primary_inv_l_response, buffer, sizeof(primary_INV_L_RESPONSE));
+    return sizeof(primary_INV_L_RESPONSE);
 }

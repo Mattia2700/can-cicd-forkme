@@ -13,6 +13,103 @@ class Hv_Errors(IntFlag):
     INT_VOLTAGE_MISMATCH = 128
     FEEDBACK_HARD = 256
     FEEDBACK_SOFT = 512
+
+class Das_Errors(IntFlag):
+    PEDAL_ADC = 1
+    PEDAL_IMPLAUSIBILITY = 2
+    IMU_TOUT = 4
+    IRTS_TOUT = 8
+    TS_TOUT = 16
+    INVL_TOUT = 32
+    INVR_TOUT = 64
+    FSM = 128
+
+class Inv_Status(IntFlag):
+    DRIVE_ENABLE = 1
+    NCR0 = 2
+    LIMP = 4
+    LIMM = 8
+    DRIVE_OK = 16
+    ICNS = 32
+    T_NLIM = 64
+    P_N = 128
+    N_I = 256
+    N0 = 512
+    RSW = 1024
+    CAL0 = 2048
+    CAL = 4096
+    TOL = 8192
+    DRIVE_READY = 16384
+    BRK = 32768
+    SIGN_MAG = 65536
+    NCLIP = 131072
+    NCLIPP = 262144
+    NCLIPM = 524288
+    IRD_DIG = 1048576
+    IUSE_RCHD = 2097152
+    IRD_N = 4194304
+    IRD_TI = 8388608
+    IRD_TIR = 16777216
+    HZ10 = 33554432
+    IRD_TM = 67108864
+    IRD_ANA = 134217728
+    IWCNS = 268435456
+    RFE_PULSE = 536870912
+    MD = 1073741824
+    HND_WHL = 2147483648
+
+class Inv_Errors(IntFlag):
+    BAD_PARAM = 1
+    HW_FAULT = 2
+    SAFETY_FAULT = 4
+    CAN_TIMEOUT = 8
+    ENCODER_ERR = 16
+    NO_POWER_VOLTAGE = 32
+    HI_MOTOR_TEMP = 64
+    HI_DEVICE_TEMP = 128
+    OVERVOLTAGE = 256
+    OVERCURRENT = 512
+    RACEAWAY = 1024
+    USER_ERR = 2048
+    UNKNOWN_ERR_12 = 4096
+    UNKNOWN_ERR_13 = 8192
+    CURRENT_ERR = 16384
+    BALLAST_OVERLOAD = 32768
+    DEVICE_ID_ERR = 65536
+    RUN_SIG_FAULT = 131072
+    UNKNOWN_ERR_19 = 262144
+    UNKNOWN_ERR_20 = 524288
+    POWERVOLTAGE_WARN = 1048576
+    HI_MOTOR_TEMP_WARN = 2097152
+    HI_DEVICE_TEMP_WARN = 4194304
+    VOUT_LIMIT_WARN = 8388608
+    OVERCURRENT_WARN = 16777216
+    RACEAWAY_WARN = 33554432
+    UNKNOWN_ERR_27 = 67108864
+    UNKNOWN_ERR_28 = 134217728
+    UNKNOWN_ERR_29 = 268435456
+    UNKNOWN_ERR_30 = 536870912
+    BALLAST_OVERLOAD_WARN = 1073741824
+
+class Inv_IOInfo(IntFlag):
+    LMT1 = 1
+    LMT2 = 2
+    IN2 = 4
+    IN1 = 8
+    FRG = 16
+    RFE = 32
+    UNK6 = 64
+    UNK7 = 128
+    OUT1 = 256
+    OUT2 = 512
+    BTB = 1024
+    GO = 2048
+    OUT3 = 4096
+    OUT4 = 8192
+    G_OFF = 16384
+    BRK1 = 32768
+
+class Reg_Val(IntFlag):
     
 class Tlm_Status_Set(IntEnum):
     OFF = 0
@@ -79,8 +176,8 @@ class Pedal(IntEnum):
     BRAKE = 1
     
 class Balancing_Status(IntEnum):
-    ON = 0
-    OFF = 1
+    OFF = 0
+    ON = 1
 
 
 # SteerVersion
@@ -221,6 +318,20 @@ class CarStatus:
     def deserialize(buffer: bytes) -> "CarStatus.struct":
         return CarStatus.struct._make(unpack(CarStatus.schema, buffer))
 
+# DasErrors
+class DasErrors:
+    struct = namedtuple("DasErrors_struct", "das_error", rename=True)
+    schema = "<b"
+    frequency_ms = 20
+    
+    @staticmethod
+    def serialize(das_error) -> bytes:
+        return pack(DasErrors.schema, das_error)
+    
+    @staticmethod
+    def deserialize(buffer: bytes) -> "DasErrors.struct":
+        return DasErrors.struct._make(unpack(DasErrors.schema, buffer))
+
 # Speed
 class Speed:
     struct = namedtuple("Speed_struct", "encoder_r encoder_l inverter_r inverter_l", rename=True)
@@ -267,7 +378,7 @@ class HvCurrent:
 class HvTemp:
     struct = namedtuple("HvTemp_struct", "average_temp max_temp min_temp", rename=True)
     schema = "<hhh"
-    frequency_ms = 20
+    frequency_ms = 200
     
     @staticmethod
     def serialize(average_temp, max_temp, min_temp) -> bytes:
@@ -478,3 +589,31 @@ class HvCellBalancingStatus:
     @staticmethod
     def deserialize(buffer: bytes) -> "HvCellBalancingStatus.struct":
         return HvCellBalancingStatus.struct._make(unpack(HvCellBalancingStatus.schema, buffer))
+
+# InvLSetTorque
+class InvLSetTorque:
+    struct = namedtuple("InvLSetTorque_struct", "regid lsb msb", rename=True)
+    schema = "<bbb"
+    frequency_ms = 20
+    
+    @staticmethod
+    def serialize(regid, lsb, msb) -> bytes:
+        return pack(InvLSetTorque.schema, regid, lsb, msb)
+    
+    @staticmethod
+    def deserialize(buffer: bytes) -> "InvLSetTorque.struct":
+        return InvLSetTorque.struct._make(unpack(InvLSetTorque.schema, buffer))
+
+# InvLResponse
+class InvLResponse:
+    struct = namedtuple("InvLResponse_struct", "reg_id reg_val", rename=True)
+    schema = "<bi"
+    frequency_ms = 100
+    
+    @staticmethod
+    def serialize(reg_id, reg_val) -> bytes:
+        return pack(InvLResponse.schema, reg_id, reg_val)
+    
+    @staticmethod
+    def deserialize(buffer: bytes) -> "InvLResponse.struct":
+        return InvLResponse.struct._make(unpack(InvLResponse.schema, buffer))

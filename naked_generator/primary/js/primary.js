@@ -145,6 +145,18 @@ function deserializePrimaryCarStatus(bytes) {
     }
 }
 
+const PrimaryDasErrors_ms = 20
+function serializePrimaryDasErrors(data) {
+    return Uint8Array.from([
+        ...byteify.serializeInt8(data.das_error),
+    ]);
+}
+function deserializePrimaryDasErrors(bytes) {
+    return {
+        das_error: byteify.deserializeInt8(bytes.slice(0, 1)),
+    }
+}
+
 const PrimarySpeed_ms = 100
 function serializePrimarySpeed(data) {
     return Uint8Array.from([
@@ -195,7 +207,7 @@ function deserializePrimaryHvCurrent(bytes) {
     }
 }
 
-const PrimaryHvTemp_ms = 20
+const PrimaryHvTemp_ms = 200
 function serializePrimaryHvTemp(data) {
     return Uint8Array.from([
         ...byteify.serializeUint16(data.average_temp),
@@ -426,5 +438,35 @@ function serializePrimaryHvCellBalancingStatus(data) {
 function deserializePrimaryHvCellBalancingStatus(bytes) {
     return {
         balancing_status: byteify.deserializeInt8(bytes.slice(0, 1)),
+    }
+}
+
+const PrimaryInvLSetTorque_ms = 20
+function serializePrimaryInvLSetTorque(data) {
+    return Uint8Array.from([
+        ...byteify.serializeUint8(data.regid),
+        ...byteify.serializeUint8(data.lsb),
+        ...byteify.serializeUint8(data.msb),
+    ]);
+}
+function deserializePrimaryInvLSetTorque(bytes) {
+    return {
+        regid: byteify.deserializeUint8(bytes.slice(0, 1)),
+        lsb: byteify.deserializeUint8(bytes.slice(1, 2)),
+        msb: byteify.deserializeUint8(bytes.slice(2, 3)),
+    }
+}
+
+const PrimaryInvLResponse_ms = 100
+function serializePrimaryInvLResponse(data) {
+    return Uint8Array.from([
+        ...byteify.serializeUint8(data.reg_id),
+        ...byteify.serializeInt8(data.reg_val),
+    ]);
+}
+function deserializePrimaryInvLResponse(bytes) {
+    return {
+        reg_id: byteify.deserializeUint8(bytes.slice(0, 1)),
+        reg_val: byteify.deserializeInt8(bytes.slice(1, 5)),
     }
 }

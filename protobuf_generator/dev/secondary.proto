@@ -2,140 +2,140 @@ syntax = "proto3";
 
 package secondary;
 
-message IMU_ANGULAR_RATE {
-    uint32 ang_rate_x = 1;
-    uint32 ang_rate_y = 2;
-    uint32 ang_rate_z = 3;
+message ImuAngularRate {
+  uint32 ang_rate_x = 1;
+  uint32 ang_rate_y = 2;
+  uint32 ang_rate_z = 3;
 }
 
-message IMU_ACCELERATION {
-    uint32 accel_x = 1;
-    uint32 accel_y = 2;
-    uint32 accel_z = 3;
+message ImuAcceleration {
+  uint32 accel_x = 1;
+  uint32 accel_y = 2;
+  uint32 accel_z = 3;
 }
 
-message IRTS_FL_0 {
-    uint32 channel1 = 1;
-    uint32 channel2 = 2;
-    uint32 channel3 = 3;
-    uint32 channel4 = 4;
+message IrtsFl0 {
+  uint32 channel1 = 1;
+  uint32 channel2 = 2;
+  uint32 channel3 = 3;
+  uint32 channel4 = 4;
 }
 
-message IRTS_FL_1 {
-    uint32 channel5 = 1;
-    uint32 channel6 = 2;
-    uint32 channel7 = 3;
-    uint32 channel8 = 4;
+message IrtsFl1 {
+  uint32 channel5 = 1;
+  uint32 channel6 = 2;
+  uint32 channel7 = 3;
+  uint32 channel8 = 4;
 }
 
-message IRTS_FL_2 {
-    uint32 channel9 = 1;
-    uint32 channel10 = 2;
-    uint32 channel11 = 3;
-    uint32 channel12 = 4;
+message IrtsFl2 {
+  uint32 channel9 = 1;
+  uint32 channel10 = 2;
+  uint32 channel11 = 3;
+  uint32 channel12 = 4;
 }
 
-message IRTS_FL_3 {
-    uint32 channel13 = 1;
-    uint32 channel14 = 2;
-    uint32 channel15 = 3;
-    uint32 channel16 = 4;
+message IrtsFl3 {
+  uint32 channel13 = 1;
+  uint32 channel14 = 2;
+  uint32 channel15 = 3;
+  uint32 channel16 = 4;
 }
 
-message IRTS_FR_0 {
-    uint32 channel1 = 1;
-    uint32 channel2 = 2;
-    uint32 channel3 = 3;
-    uint32 channel4 = 4;
+message IrtsFr0 {
+  uint32 channel1 = 1;
+  uint32 channel2 = 2;
+  uint32 channel3 = 3;
+  uint32 channel4 = 4;
 }
 
-message IRTS_FR_1 {
-    uint32 channel5 = 1;
-    uint32 channel6 = 2;
-    uint32 channel7 = 3;
-    uint32 channel8 = 4;
+message IrtsFr1 {
+  uint32 channel5 = 1;
+  uint32 channel6 = 2;
+  uint32 channel7 = 3;
+  uint32 channel8 = 4;
 }
 
-message IRTS_FR_2 {
-    uint32 channel9 = 1;
-    uint32 channel10 = 2;
-    uint32 channel11 = 3;
-    uint32 channel12 = 4;
+message IrtsFr2 {
+  uint32 channel9 = 1;
+  uint32 channel10 = 2;
+  uint32 channel11 = 3;
+  uint32 channel12 = 4;
 }
 
-message IRTS_FR_3 {
-    uint32 channel13 = 1;
-    uint32 channel14 = 2;
-    uint32 channel15 = 3;
-    uint32 channel16 = 4;
+message IrtsFr3 {
+  uint32 channel13 = 1;
+  uint32 channel14 = 2;
+  uint32 channel15 = 3;
+  uint32 channel16 = 4;
 }
 
-message IRTS_RL_0 {
-    uint32 channel1 = 1;
-    uint32 channel2 = 2;
-    uint32 channel3 = 3;
-    uint32 channel4 = 4;
+message IrtsRl0 {
+  uint32 channel1 = 1;
+  uint32 channel2 = 2;
+  uint32 channel3 = 3;
+  uint32 channel4 = 4;
 }
 
-message IRTS_RL_1 {
-    uint32 channel5 = 1;
-    uint32 channel6 = 2;
-    uint32 channel7 = 3;
-    uint32 channel8 = 4;
+message IrtsRl1 {
+  uint32 channel5 = 1;
+  uint32 channel6 = 2;
+  uint32 channel7 = 3;
+  uint32 channel8 = 4;
 }
 
-message IRTS_RL_2 {
-    uint32 channel9 = 1;
-    uint32 channel10 = 2;
-    uint32 channel11 = 3;
-    uint32 channel12 = 4;
+message IrtsRl2 {
+  uint32 channel9 = 1;
+  uint32 channel10 = 2;
+  uint32 channel11 = 3;
+  uint32 channel12 = 4;
 }
 
-message IRTS_RL_3 {
-    uint32 channel13 = 1;
-    uint32 channel14 = 2;
-    uint32 channel15 = 3;
-    uint32 channel16 = 4;
+message IrtsRl3 {
+  uint32 channel13 = 1;
+  uint32 channel14 = 2;
+  uint32 channel15 = 3;
+  uint32 channel16 = 4;
 }
 
-message IRTS_RR_0 {
-    uint32 channel1 = 1;
-    uint32 channel2 = 2;
-    uint32 channel3 = 3;
-    uint32 channel4 = 4;
+message IrtsRr0 {
+  uint32 channel1 = 1;
+  uint32 channel2 = 2;
+  uint32 channel3 = 3;
+  uint32 channel4 = 4;
 }
 
-message IRTS_RR_1 {
-    uint32 channel5 = 1;
-    uint32 channel6 = 2;
-    uint32 channel7 = 3;
-    uint32 channel8 = 4;
+message IrtsRr1 {
+  uint32 channel5 = 1;
+  uint32 channel6 = 2;
+  uint32 channel7 = 3;
+  uint32 channel8 = 4;
 }
 
-message IRTS_RR_2 {
-    uint32 channel9 = 1;
-    uint32 channel10 = 2;
-    uint32 channel11 = 3;
-    uint32 channel12 = 4;
+message IrtsRr2 {
+  uint32 channel9 = 1;
+  uint32 channel10 = 2;
+  uint32 channel11 = 3;
+  uint32 channel12 = 4;
 }
 
-message IRTS_RR_3 {
-    uint32 channel13 = 1;
-    uint32 channel14 = 2;
-    uint32 channel15 = 3;
-    uint32 channel16 = 4;
+message IrtsRr3 {
+  uint32 channel13 = 1;
+  uint32 channel14 = 2;
+  uint32 channel15 = 3;
+  uint32 channel16 = 4;
 }
 
-message GPS_COORDS {
-    float latitude = 1;
-    float longitude = 2;
+message GpsCoords {
+  float latitude = 1;
+  float longitude = 2;
 }
 
-message GPS_SPEED {
-    uint32 speed = 1;
+message GpsSpeed {
+  uint32 speed = 1;
 }
 
-message LAP_COUNT {
-    uint32 lap_count = 1;
-    uint32 timestamp = 2;
+message LapCount {
+  uint32 lap_count = 1;
+  uint32 timestamp = 2;
 }

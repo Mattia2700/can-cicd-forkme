@@ -65,6 +65,9 @@ void primary_msgname_from_id(uint32_t msg_id, char buffer[static 26]) {
         case 514:
             strcpy(buffer, "CAR_STATUS");
             break;
+        case 2:
+            strcpy(buffer, "DAS_ERRORS");
+            break;
         case 774:
             strcpy(buffer, "LV_CURRENT");
             break;
@@ -76,6 +79,9 @@ void primary_msgname_from_id(uint32_t msg_id, char buffer[static 26]) {
             break;
         case 870:
             strcpy(buffer, "COOLING_STATUS");
+            break;
+        case 1:
+            strcpy(buffer, "MARKER");
             break;
         case 519:
             strcpy(buffer, "HV_CELLS_VOLTAGE");
@@ -94,6 +100,12 @@ void primary_msgname_from_id(uint32_t msg_id, char buffer[static 26]) {
             break;
         case 546:
             strcpy(buffer, "SPEED");
+            break;
+        case 513:
+            strcpy(buffer, "INV_L_SET_TORQUE");
+            break;
+        case 385:
+            strcpy(buffer, "INV_L_RESPONSE");
             break;
         default:
             strcpy(buffer, ""); // Unknown message

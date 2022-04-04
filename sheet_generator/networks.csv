@@ -1,4 +1,57 @@
 name,id,network,topic,priority,sending,receiving,frequency,contents,description
+STEER_VERSION,1024,primary,BROADCAST,3,STEER,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
+DAS_VERSION,1056,primary,BROADCAST,3,DAS,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
+HV_VERSION,1088,primary,BROADCAST,3,BMS_HW,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
+LV_VERSION,1120,primary,BROADCAST,3,BMS_LW,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
+TLM_VERSION,1152,primary,BROADCAST,3,TLM,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
+TIMESTAMP,256,primary,BROADCAST,6,TLM,"STEER, DAS, BMS_HV, BMS_LV",1000,timestamp: uint32,every second unix encoded time and date used by logging devices to sync
+SET_TLM_STATUS,257,primary,TLM,6,STEER,TLM,,"tlm_status_set: OFF, ON, race_type: ACCELERATION, SKIDPAD, AUTOCROSS, ENDURANCE, driver: uint8, circuit: uint8","Ask telemetry to turn on/off and send a tuple containing the currenttest, driver, map); only once"
+TLM_STATUS,258,primary,STEER,6,TLM,STEER,1000,"tlm_status: ON, OFF, race_type: ACCELERATION, SKIDPAD, AUTOCROSS, ENDURANCE, driver: uint8, circuit: uint8",The answer to the steering wheels message that changes the status of the telemetry
+STEER_SYSTEM_STATUS,1793,primary,TLM,0,STEER,TLM,2000,soc_temp: uint8,System stats of the raspberry pi inside the steering wheel
+HV_VOLTAGE,771,primary,DASnSTEERnCART,4,BMS_HV,"DAS, STEER, HANDCART",20,"pack_voltage: uint16, bus_voltage: uint16, max_cell_voltage: uint16, min_cell_voltage: uint16",Pack stats
+HV_CURRENT,803,primary,DASnSTEERnCART,4,BMS_HV,"DAS, STEER, HANDCART",20,"current: uint16, power: int16",Current supplied by the pack
+HV_TEMP,835,primary,DASnSTEERnCART,4,BMS_HV,"DAS, STEER, HANDCART",200,"average_temp: uint16, max_temp: uint16, min_temp: uint16",Cell temperatures
+HV_ERRORS,3,primary,DASnSTEERnCART,7,BMS_HV,"DAS, STEER, HANDCART",20,"warnings: Hv_Errors, errors: Hv_Errors",Battery-related errors
+TS_STATUS,35,primary,DASnSTEERnCART,7,BMS_HV,"DAS, STEER, HANDCART",20,"ts_status: OFF, PRECHARGE, ON, FATAL",BMS status
+SET_TS_STATUS,4,primary,BMS_HV,7,"DAS, HANDCART",BMS_HV,,"ts_status_set: OFF, ON",Requests a TS status; only once
+STEER_STATUS,261,primary,DAS,6,STEER,DAS,100,"traction_control: OFF, SLIP_CONTROL, TORQUE_VECTORING, COMPLETE, map: R, D20, D40, D60, D80, D100",Send update of the tuneable values from the steering wheel
+SET_CAR_STATUS,773,primary,DAS,4,STEER,DAS,,"car_status_set: IDLE, RUN",Ask to DAS to change car status; only once
+SET_PEDALS_RANGE,1029,primary,DAS,3,STEER,DAS,,"bound: SET_MAX, SET_MIN, pedal: ACCELERATOR, BRAKE","Ask to calibrate pedals and steer in x_START, x_END steps; only once"
+CAR_STATUS,514,primary,STEER,5,DAS,STEER,100,"Inverter_status: inverter_l: OFF, IDLE, ON, Inverter_status: inverter_r: OFF, IDLE, ON, car_status: IDLE, SETUP, RUN","Car status, all states managed by the DAS will be send (car status, inverters status)"
+DAS_ERRORS,2,primary,STEER,7,DAS,STEER,20,das_error: Das_Errors,DAS errors messages
+LV_CURRENT,774,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",500,current: uint8,Current of LV battery pack: total current taken from the battery itself
+LV_VOLTAGE,806,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",200,"total_voltage: uint16, voltage_1: uint8, voltage_2: uint8, voltage_3: uint8, voltage_4: uint8","Voltages of LV battery pack: total voltage 16 bit 12,17.2V (0x0000 under_voltage,0xFFFF over_voltage), 4x single cell voltage 8bit 3,4.2V 0.005mV/bit (no additional info, 0x000 is 3V 0xFFFF is 4.2V)"
+LV_TEMPERATURE,838,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",200,"bp_temperature: uint8, dcdc_temperature: uint8","Temperature of LV battery pack,0,80Celsius, uint8 0.32C/bit. battery pack and dcdc converter"
+COOLING_STATUS,870,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",1000,"hv_fan_speed: uint8, lv_fan_speed: uint8, pump_speed: uint8","Percentage value 0% to 100% of bms_hv_fans, bms_lv_fans, pump_speed, 8bit"
+MARKER,1,primary,TLM,7,STEER,TLM,,,Send a marker to telemetry
+HV_CELLS_VOLTAGE,519,primary,HANDCART,5,BMS_HV,HANDCART,200,"cell_index: uint8, voltage_0: uint16, voltage_1: uint16, voltage_2: uint16",Voltages for each cell
+HV_CELLS_TEMP,551,primary,HANDCART,5,BMS_HV,HANDCART,100,"cell_index: uint8, temp_0: uint8, temp_1: uint8, temp_2: uint8, temp_3: uint8, temp_4: uint8, temp_5: uint8, temp_6: uint8",Cell temperatures
+HV_CELL_BALANCING_STATUS,583,primary,HANDCART,5,BMS_HV,HANDCART,500,"balancing_status: OFF, ON",Cell balancing status
+SET_CELL_BALANCING_STATUS,516,primary,BMS_HV,5,HANDCART,BMS_HV,,"set_balancing_status: OFF, ON",Set cell balancing status; only once
+HANDCART_STATUS,772,primary,BMS_HV,4,HANDCART,BMS_HV,500,connected: bool,Sends updates on the presence of the handcart
+SPEED,546,primary,STEER,5,DAS,STEER,100,"encoder_r: uint16, encoder_l: uint16, inverter_r: uint16, inverter_l: uint16",Encoder speed and inverter RPMs
+INV_L_SET_TORQUE,513,primary,FIXED_IDS,,DAS,INVERTER_L,20,"regid: uint8, lsb: uint8, msb: uint8",
+INV_L_RESPONSE,385,primary,FIXED_IDS,,INVERTER_L,DAS,100,"reg_id: uint8, reg_val: Reg_Val",
+BOARD_STATUS_0,1536,bms,STATUS,1,CELLBOARD0,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
+BOARD_STATUS_1,1568,bms,STATUS,1,CELLBOARD1,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
+BOARD_STATUS_2,1600,bms,STATUS,1,CELLBOARD2,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
+BOARD_STATUS_3,1632,bms,STATUS,1,CELLBOARD3,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
+BOARD_STATUS_4,1664,bms,STATUS,1,CELLBOARD4,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
+BOARD_STATUS_5,1696,bms,STATUS,1,CELLBOARD5,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
+TEMPERATURES_0,1281,bms,TEMPERATURE_INFO,2,CELLBOARD0,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
+TEMPERATURES_1,1313,bms,TEMPERATURE_INFO,2,CELLBOARD1,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
+TEMPERATURES_2,1345,bms,TEMPERATURE_INFO,2,CELLBOARD2,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
+TEMPERATURES_3,1377,bms,TEMPERATURE_INFO,2,CELLBOARD3,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
+TEMPERATURES_4,1409,bms,TEMPERATURE_INFO,2,CELLBOARD4,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
+TEMPERATURES_5,1441,bms,TEMPERATURE_INFO,2,CELLBOARD5,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
+VOLTAGES_0,514,bms,VOLTAGE_INFO,5,CELLBOARD0,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
+VOLTAGES_1,546,bms,VOLTAGE_INFO,5,CELLBOARD1,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
+VOLTAGES_2,578,bms,VOLTAGE_INFO,5,CELLBOARD2,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
+VOLTAGES_3,610,bms,VOLTAGE_INFO,5,CELLBOARD3,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
+VOLTAGES_4,642,bms,VOLTAGE_INFO,5,CELLBOARD4,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
+VOLTAGES_5,674,bms,VOLTAGE_INFO,5,CELLBOARD5,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
+BALANCING,515,bms,BALANCING,5,MAINBOARD,"CELLBOARD0, CELLBOARD1, CELLBOARD2, CELLBOARD3, CELLBOARD4, CELLBOARD5",,"board_index: uint8, cells: balancing_cells",Set discharging status for cells
+FW_UPDATE,260,bms,FW_UPDATE,6,MAINBOARD,"CELLBOARD0, CELLBOARD1, CELLBOARD2, CELLBOARD3, CELLBOARD4, CELLBOARD5",,board_index: uint8,Starts firmware update
 IMU_ANGULAR_RATE,1260,secondary,FIXED_IDS,,IMU,DAS,,"ang_rate_x: uint16, ang_rate_y: uint16, ang_rate_z: uint16","Inertial Measurement Unit x,y,z-axis angular rate value. 0.01dps per bit, Big-Endian, 16bit Total, signed"
 IMU_ACCELERATION,1261,secondary,FIXED_IDS,,IMU,DAS,,"accel_x: uint16, accel_y: uint16, accel_z: uint16","Inertial Measurement Unit x,y,z-axis acceleration value. 0.01g per bit, Big-Endian, 16bit Total, signed"
 IRTS_FL_0,1460,secondary,FIXED_IDS,,IRTS_FL,DAS,,"channel1: uint16, channel2: uint16, channel3: uint16, channel4: uint16","Front Left wheel InfraRed Temperature Sensor data, channels 1 through 4. 0.1˚C per bit, -100˚C offset, Big-Endian, 16bit Total, unsigned."
@@ -20,52 +73,3 @@ IRTS_RR_3,1475,secondary,FIXED_IDS,,IRTS_RR,DAS,,"channel13: uint16, channel14: 
 GPS_COORDS,1025,secondary,STEER,3,TLM,STEER,,"latitude: float32, longitude: float32",Coordinates received from GPS
 GPS_SPEED,1057,secondary,STEER,3,TLM,STEER,,speed: uint16,Speed received from GPS
 LAP_COUNT,1089,secondary,STEER,3,TLM,STEER,,"lap_count: uint8, timestamp: uint32",Lap counter and associated timestamp
-STEER_VERSION,1024,primary,BROADCAST,3,STEER,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
-DAS_VERSION,1056,primary,BROADCAST,3,DAS,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
-HV_VERSION,1088,primary,BROADCAST,3,BMS_HW,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
-LV_VERSION,1120,primary,BROADCAST,3,BMS_LW,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
-TLM_VERSION,1152,primary,BROADCAST,3,TLM,"DAS, STEER",1000,"component_version: uint8, cancicd_version: uint8",periodic message containing current can definitions version
-TIMESTAMP,256,primary,BROADCAST,6,TLM,"STEER, DAS, BMS_HV, BMS_LV",1000,timestamp: uint32,every second unix encoded time and date used by logging devices to sync
-SET_TLM_STATUS,257,primary,TLM,6,STEER,TLM,,"tlm_status_set: OFF, ON, race_type: ACCELERATION, SKIDPAD, AUTOCROSS, ENDURANCE, driver: uint8, circuit: uint8","Ask telemetry to turn on/off and send a tuple containing the currenttest, driver, map); only once"
-TLM_STATUS,258,primary,STEER,6,TLM,STEER,1000,"tlm_status: ON, OFF, race_type: ACCELERATION, SKIDPAD, AUTOCROSS, ENDURANCE, driver: uint8, circuit: uint8",The answer to the steering wheels message that changes the status of the telemetry
-STEER_SYSTEM_STATUS,1793,primary,TLM,0,STEER,TLM,2000,soc_temp: uint8,System stats of the raspberry pi inside the steering wheel
-HV_VOLTAGE,771,primary,DASnSTEERnCART,4,BMS_HV,"DAS, STEER, HANDCART",20,"pack_voltage: uint16, bus_voltage: uint16, max_cell_voltage: uint16, min_cell_voltage: uint16",Pack stats
-HV_CURRENT,803,primary,DASnSTEERnCART,4,BMS_HV,"DAS, STEER, HANDCART",20,"current: uint16, power: int16",Current supplied by the pack
-HV_TEMP,835,primary,DASnSTEERnCART,4,BMS_HV,"DAS, STEER, HANDCART",20,"average_temp: uint16, max_temp: uint16, min_temp: uint16",Cell temperatures
-HV_ERRORS,3,primary,DASnSTEERnCART,7,BMS_HV,"DAS, STEER, HANDCART",20,"warnings: Hv_Errors, errors: Hv_Errors",Battery-related errors
-TS_STATUS,35,primary,DASnSTEERnCART,7,BMS_HV,"DAS, STEER, HANDCART",20,"ts_status: OFF, PRECHARGE, ON, FATAL",BMS status
-SET_TS_STATUS,4,primary,BMS_HV,7,"DAS, HANDCART",BMS_HV,,"ts_status_set: OFF, ON",Requests a TS status; only once
-STEER_STATUS,261,primary,DAS,6,STEER,DAS,100,"traction_control: OFF, SLIP_CONTROL, TORQUE_VECTORING, COMPLETE, map: R, D20, D40, D60, D80, D100",Send update of the tuneable values from the steering wheel
-SET_CAR_STATUS,773,primary,DAS,4,STEER,DAS,,"car_status_set: IDLE, RUN",Ask to DAS to change car status; only once
-SET_PEDALS_RANGE,1029,primary,DAS,3,STEER,DAS,,"bound: SET_MAX, SET_MIN, pedal: ACCELERATOR, BRAKE","Ask to calibrate pedals and steer in x_START, x_END steps; only once"
-CAR_STATUS,514,primary,STEER,5,DAS,STEER,100,"Inverter_status: inverter_l: OFF, IDLE, ON, Inverter_status: inverter_r: OFF, IDLE, ON, car_status: IDLE, SETUP, RUN","Car status, all states managed by the DAS will be send (car status, inverters status)"
-LV_CURRENT,774,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",500,current: uint8,Current of LV battery pack: total current taken from the battery itself
-LV_VOLTAGE,806,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",200,"total_voltage: uint16, voltage_1: uint8, voltage_2: uint8, voltage_3: uint8, voltage_4: uint8","Voltages of LV battery pack: total voltage 16 bit 12,17.2V (0x0000 under_voltage,0xFFFF over_voltage), 4x single cell voltage 8bit 3,4.2V 0.005mV/bit (no additional info, 0x000 is 3V 0xFFFF is 4.2V)"
-LV_TEMPERATURE,838,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",200,"bp_temperature: uint8, dcdc_temperature: uint8","Temperature of LV battery pack,0,80Celsius, uint8 0.32C/bit. battery pack and dcdc converter"
-COOLING_STATUS,870,primary,DASnSTEER,4,BMS_LV,"DAS, STEER",1000,"hv_fan_speed: uint8, lv_fan_speed: uint8, pump_speed: uint8","Percentage value 0% to 100% of bms_hv_fans, bms_lv_fans, pump_speed, 8bit"
-HV_CELLS_VOLTAGE,519,primary,HANDCART,5,BMS_HV,HANDCART,200,"cell_index: uint8, voltage_0: uint16, voltage_1: uint16, voltage_2: uint16",Voltages for each cell
-HV_CELLS_TEMP,551,primary,HANDCART,5,BMS_HV,HANDCART,100,"cell_index: uint8, temp_0: uint8, temp_1: uint8, temp_2: uint8, temp_3: uint8, temp_4: uint8, temp_5: uint8, temp_6: uint8",Cell temperatures
-HV_CELL_BALANCING_STATUS,583,primary,HANDCART,5,BMS_HV,HANDCART,500,"balancing_status: ON, OFF",Cell balancing status
-SET_CELL_BALANCING_STATUS,516,primary,BMS_HV,5,HANDCART,BMS_HV,,"set_balancing_status: OFF, ON",Set cell balancing status; only once
-HANDCART_STATUS,772,primary,BMS_HV,4,HANDCART,BMS_HV,500,connected: bool,Sends updates on the presence of the handcart
-SPEED,546,primary,STEER,5,DAS,STEER,100,"encoder_r: uint16, encoder_l: uint16, inverter_r: uint16, inverter_l: uint16",Encoder speed and inverter RPMs
-BOARD_STATUS_0,1536,bms,STATUS,1,CELLBOARD0,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
-BOARD_STATUS_1,1568,bms,STATUS,1,CELLBOARD1,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
-BOARD_STATUS_2,1600,bms,STATUS,1,CELLBOARD2,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
-BOARD_STATUS_3,1632,bms,STATUS,1,CELLBOARD3,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
-BOARD_STATUS_4,1664,bms,STATUS,1,CELLBOARD4,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
-BOARD_STATUS_5,1696,bms,STATUS,1,CELLBOARD5,MAINBOARD,,"errors: errors, balancing_status: balancing_status",Cellboards status
-TEMPERATURES_0,1281,bms,TEMPERATURE_INFO,2,CELLBOARD0,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
-TEMPERATURES_1,1313,bms,TEMPERATURE_INFO,2,CELLBOARD1,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
-TEMPERATURES_2,1345,bms,TEMPERATURE_INFO,2,CELLBOARD2,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
-TEMPERATURES_3,1377,bms,TEMPERATURE_INFO,2,CELLBOARD3,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
-TEMPERATURES_4,1409,bms,TEMPERATURE_INFO,2,CELLBOARD4,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
-TEMPERATURES_5,1441,bms,TEMPERATURE_INFO,2,CELLBOARD5,MAINBOARD,,"start_index: uint8, temp0: uint8, temp1: uint8, temp2: uint8, temp3: uint8, temp4: uint8, temp5: uint8",Cells temperatures
-VOLTAGES_0,514,bms,VOLTAGE_INFO,5,CELLBOARD0,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
-VOLTAGES_1,546,bms,VOLTAGE_INFO,5,CELLBOARD1,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
-VOLTAGES_2,578,bms,VOLTAGE_INFO,5,CELLBOARD2,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
-VOLTAGES_3,610,bms,VOLTAGE_INFO,5,CELLBOARD3,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
-VOLTAGES_4,642,bms,VOLTAGE_INFO,5,CELLBOARD4,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
-VOLTAGES_5,674,bms,VOLTAGE_INFO,5,CELLBOARD5,MAINBOARD,,"start_index: uint8, voltage0: uint16, voltage1: uint16, voltage2: uint16",Cells voltages
-BALANCING,515,bms,BALANCING,5,MAINBOARD,"CELLBOARD0, CELLBOARD1, CELLBOARD2, CELLBOARD3, CELLBOARD4, CELLBOARD5",,"board_index: uint8, cells: balancing_cells",Set discharging status for cells
-FW_UPDATE,260,bms,FW_UPDATE,6,MAINBOARD,"CELLBOARD0, CELLBOARD1, CELLBOARD2, CELLBOARD3, CELLBOARD4, CELLBOARD5",,board_index: uint8,Starts firmware update

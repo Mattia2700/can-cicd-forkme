@@ -39,6 +39,10 @@ ID_SET_TLM_STATUS = 0b00100000001
 System stats of the raspberry pi inside the steering wheel
 """
 ID_STEER_SYSTEM_STATUS = 0b11100000001
+"""
+Send a marker to telemetry
+"""
+ID_MARKER = 0b00000000001
 
 # TOPIC STEER
 TOPIC_STEER_MASK = 0b00000011111
@@ -51,6 +55,10 @@ ID_TLM_STATUS = 0b00100000010
 Car status, all states managed by the DAS will be send (car status, inverters status)
 """
 ID_CAR_STATUS = 0b01000000010
+"""
+DAS errors messages
+"""
+ID_DAS_ERRORS = 0b00000000010
 """
 Encoder speed and inverter RPMs
 """
@@ -147,5 +155,9 @@ ID_HV_CELLS_TEMP = 0b01000100111
 Cell balancing status
 """
 ID_HV_CELL_BALANCING_STATUS = 0b01001000111
+
+# TOPIC FIXED_IDS
+ID_INV_L_SET_TORQUE = 0b01000000001
+ID_INV_L_RESPONSE = 0b00110000001
 
 

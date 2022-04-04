@@ -15,6 +15,117 @@
                 "FEEDBACK_SOFT"
             ]
         },
+        "Das_Errors": {
+            "type": "bitset",
+            "items": [
+                "PEDAL_ADC",
+                "PEDAL_IMPLAUSIBILITY",
+                "IMU_TOUT",
+                "IRTS_TOUT",
+                "TS_TOUT",
+                "INVL_TOUT",
+                "INVR_TOUT",
+                "FSM"
+            ]
+        },
+        "Inv_Status": {
+            "type": "bitset",
+            "items": [
+                "DRIVE_ENABLE",
+                "NCR0",
+                "LIMP",
+                "LIMM",
+                "DRIVE_OK",
+                "ICNS",
+                "T_NLIM",
+                "P_N",
+                "N_I",
+                "N0",
+                "RSW",
+                "CAL0",
+                "CAL",
+                "TOL",
+                "DRIVE_READY",
+                "BRK",
+                "SIGN_MAG",
+                "NCLIP",
+                "NCLIPP",
+                "NCLIPM",
+                "IRD_DIG",
+                "IUSE_RCHD",
+                "IRD_N",
+                "IRD_TI",
+                "IRD_TIR",
+                "HZ10",
+                "IRD_TM",
+                "IRD_ANA",
+                "IWCNS",
+                "RFE_PULSE",
+                "MD",
+                "HND_WHL"
+            ]
+        },
+        "Inv_Errors": {
+            "type": "bitset",
+            "items": [
+                "BAD_PARAM",
+                "HW_FAULT",
+                "SAFETY_FAULT",
+                "CAN_TIMEOUT",
+                "ENCODER_ERR",
+                "NO_POWER_VOLTAGE",
+                "HI_MOTOR_TEMP",
+                "HI_DEVICE_TEMP",
+                "OVERVOLTAGE",
+                "OVERCURRENT",
+                "RACEAWAY",
+                "USER_ERR",
+                "UNKNOWN_ERR_12",
+                "UNKNOWN_ERR_13",
+                "CURRENT_ERR",
+                "BALLAST_OVERLOAD",
+                "DEVICE_ID_ERR",
+                "RUN_SIG_FAULT",
+                "UNKNOWN_ERR_19",
+                "UNKNOWN_ERR_20",
+                "POWERVOLTAGE_WARN",
+                "HI_MOTOR_TEMP_WARN",
+                "HI_DEVICE_TEMP_WARN",
+                "VOUT_LIMIT_WARN",
+                "OVERCURRENT_WARN",
+                "RACEAWAY_WARN",
+                "UNKNOWN_ERR_27",
+                "UNKNOWN_ERR_28",
+                "UNKNOWN_ERR_29",
+                "UNKNOWN_ERR_30",
+                "BALLAST_OVERLOAD_WARN"
+            ]
+        },
+        "Inv_IOInfo": {
+            "type": "bitset",
+            "items": [
+                "LMT1",
+                "LMT2",
+                "IN2",
+                "IN1",
+                "FRG",
+                "RFE",
+                "UNK6",
+                "UNK7",
+                "OUT1",
+                "OUT2",
+                "BTB",
+                "GO",
+                "OUT3",
+                "OUT4",
+                "G_OFF",
+                "BRK1"
+            ]
+        },
+        "Reg_Val": {
+            "type": "bitset",
+            "size": 32
+        },
         "Tlm_Status_Set": {
             "type": "enum",
             "items": [
@@ -121,8 +232,8 @@
         "Balancing_Status": {
             "type": "enum",
             "items": [
-                "ON",
-                "OFF"
+                "OFF",
+                "ON"
             ]
         }
     },
@@ -159,6 +270,7 @@
         "STEER_SYSTEM_STATUS": {
             "soc_temp": "uint8"
         },
+        "MARKER": {},
         "TLM_STATUS": {
             "tlm_status": "Tlm_Status",
             "race_type": "Race_Type",
@@ -169,6 +281,9 @@
             "inverter_l": "Inverter_Status",
             "inverter_r": "Inverter_Status",
             "car_status": "Car_Status"
+        },
+        "DAS_ERRORS": {
+            "das_error": "Das_Errors"
         },
         "SPEED": {
             "encoder_r": "uint16",
@@ -255,6 +370,15 @@
         },
         "HV_CELL_BALANCING_STATUS": {
             "balancing_status": "Balancing_Status"
+        },
+        "INV_L_SET_TORQUE": {
+            "regid": "uint8",
+            "lsb": "uint8",
+            "msb": "uint8"
+        },
+        "INV_L_RESPONSE": {
+            "reg_id": "uint8",
+            "reg_val": "Reg_Val"
         }
     }
 }

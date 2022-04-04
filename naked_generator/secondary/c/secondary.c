@@ -4,6 +4,15 @@
 
 #include "secondary.h"
 
+/*
+*   STDC Version check
+*   check if STDC version is greater or equal than the minimum version required
+*/
+#define NAKED_STDC_MIN_VERSION 201112L
+#if __STDC_VERSION__ < NAKED_STDC_MIN_VERSION
+	#error "** STDC VERSION NOT SUPPORTED **"
+#endif
+
 /* secondary_IMU_ANGULAR_RATE */
 size_t serialize_secondary_IMU_ANGULAR_RATE(uint8_t* buffer, uint16_t ang_rate_x, uint16_t ang_rate_y, uint16_t ang_rate_z) {
     secondary_IMU_ANGULAR_RATE secondary_imu_angular_rate = { ang_rate_x, ang_rate_y, ang_rate_z };

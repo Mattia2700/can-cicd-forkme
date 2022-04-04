@@ -4,6 +4,15 @@
 
 #include "bms.h"
 
+/*
+*   STDC Version check
+*   check if STDC version is greater or equal than the minimum version required
+*/
+#define NAKED_STDC_MIN_VERSION 201112L
+#if __STDC_VERSION__ < NAKED_STDC_MIN_VERSION
+	#error "** STDC VERSION NOT SUPPORTED **"
+#endif
+
 /* bms_BOARD_STATUS */
 size_t serialize_bms_BOARD_STATUS(uint8_t* buffer, bms_errors errors, bms_balancing_status balancing_status) {
     bms_BOARD_STATUS bms_board_status = { {errors[0]}, balancing_status };

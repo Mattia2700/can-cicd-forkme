@@ -42,6 +42,10 @@
 * System stats of the raspberry pi inside the steering wheel
 */
 #define ID_STEER_SYSTEM_STATUS 0b11100000001
+/*
+* Send a marker to telemetry
+*/
+#define ID_MARKER 0b00000000001
 
 /* TOPIC STEER */
 #define TOPIC_STEER_MASK 0b00000011111
@@ -54,6 +58,10 @@
 * Car status, all states managed by the DAS will be send (car status, inverters status)
 */
 #define ID_CAR_STATUS 0b01000000010
+/*
+* DAS errors messages
+*/
+#define ID_DAS_ERRORS 0b00000000010
 /*
 * Encoder speed and inverter RPMs
 */
@@ -150,5 +158,10 @@
 * Cell balancing status
 */
 #define ID_HV_CELL_BALANCING_STATUS 0b01001000111
+
+/* TOPIC FIXED_IDS */
+#define TOPIC_FIXED_IDS_MASK 0b00000011111
+#define ID_INV_L_SET_TORQUE 0b01000000001
+#define ID_INV_L_RESPONSE 0b00110000001
 
 #endif
