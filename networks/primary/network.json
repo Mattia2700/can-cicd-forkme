@@ -263,7 +263,7 @@
             ],
             "description": "Ask telemetry to turn on/off and send a tuple containing the current{test, driver, map); only once",
             "contents": {
-                "tlm_status_set": [
+                "tlm_status": [
                     "OFF",
                     "ON"
                 ],
