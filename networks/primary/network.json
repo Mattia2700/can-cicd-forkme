@@ -126,7 +126,11 @@
         },
         "Reg_Val": {
             "type": "bitset",
-            "size": 32
+            "size": 32,
+            "contents": [
+                "Inv_Status",
+                "Inv_Errors"
+            ] 
         }
     },
     "messages": [
