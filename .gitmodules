@@ -1,3 +1,4 @@
-[submodule "can-cicd"]
+
+[submodule "origin"]
 	path = can-cicd
 	url = git@github.com:Mattia2700/can-cicd.git
